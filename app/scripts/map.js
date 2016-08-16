@@ -133,8 +133,15 @@ Map.prototype.addPokestops = function(forts) {
         var pt = forts[i];
         var ps = this.availablePokestops.find(ps => ps.id == pt.id);
         if (!ps) {
+            var popinfo = $(`
+                <div class="pokestop" id='${pt.id}'>
+                    <a href="#" id="AssignFortTargetLink">goto</a><br />${pt.lat}, ${pt.lng}<br />
+                            `).click(function() {
+                                    $(".pokestop .ptinfo").attr("id", this.id);
+                                    $(".pokestop .ptinfo").click();
+                            });
             var icon = L.icon({ iconUrl: `./assets/img/pokestop_available.png`, iconSize: [30, 50]});
-            pt.marker = L.marker([pt.lat, pt.lng], {icon: icon, zIndexOffset: 50}).addTo(this.layerPokestops);
+            pt.marker = L.marker([pt.lat, pt.lng], {icon: icon, zIndexOffset: 50}).bindPopup(popinfo[0]).addTo(this.layerPokestops);
             this.availablePokestops.push(pt);
         }
     }

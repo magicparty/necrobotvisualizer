@@ -76,6 +76,15 @@
             window.location = "config.html";
         });
 
+        $(".pokestop .ptinfo").click( function() {
+            console.log("AssignFortTarget");
+            wssend({
+                Command: "AssignFortTarget",
+                FortId: $(this).attr("id"),
+                Data: $(this).attr("id")
+            });
+        });
+
         $(".inventory .data").on("click", "a.transferAction", function() {
             var transfer = $(this).parent();
             confirmAndSendToServer("Are you sure you want to transfer this Pokemon?", () => {
